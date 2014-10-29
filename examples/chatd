@@ -98,6 +98,12 @@ server.on('connect', function(socket) {
       }
       var announcement = '>>> '+socket.nick+' has joined the conversation\n';
       sendToEveryone(announcement, socket);
+    } else if (data.toString().indexOf('!userlist') > -1) {
+	  sendToEveryone('Connected users:\n');
+	  for(var i=0; i<chatClients.length; i++) {
+		  var chatClient = chatClients[i];
+		  sendToEveryone(chatClient.nick+'\n')
+	  }
     } else {
       sendToEveryone(socket.nick+'> '+data, socket);
     }
